@@ -74,27 +74,28 @@
         <button class="btn" onclick="orderService('Уборка участка')">Вызвать мастеров</button>
     </div>
 
-    <script>
-        // Инициализация Telegram WebApp
+        <script>
         const tg = window.Telegram.WebApp;
-        tg.ready(); // Сообщаем Telegram, что приложение готово
-        tg.expand(); // Открываем на весь экран
+        
+        try {
+            tg.ready();
+            tg.expand();
 
-        // Приветствие пользователя по имени из Telegram
-        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
-            document.getElementById('user-title').innerText = `ZODIAK METAL для ${tg.initDataUnsafe.user.first_name}`;
+            if (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.first_name) {
+                document.getElementById('user-title').innerText = `ZODIAK METAL для ${tg.initDataUnsafe.user.first_name}`;
+            }
+        } catch (e) {
+            console.error("Ошибка инициализации SDK:", e);
         }
 
-        // Функция обработки нажатия на кнопку заказа услуги
         function orderService(serviceName) {
-            // Показываем красивое всплывающее уведомление внутри интерфейса Telegram
-            tg.showAlert(`Заявка на "${serviceName}" принята! Мы свяжемся с вами.`);
-            
-            // Отправляем текстовые данные обратно боту в чат
-            tg.sendData(`Заявка: ${serviceName}`);
-            
-            // Закрываем Mini App
-            tg.close();
+            try {
+                tg.showAlert(`Заявка на "${serviceName}" принята! Мы свяжемся с вами.`);
+                tg.sendData(`Заявка: ${serviceName}`);
+                tg.close();
+            } catch (e) {
+                alert(`Заявка на "${serviceName}" принята!`);
+            }
         }
     </script>
 </body>
