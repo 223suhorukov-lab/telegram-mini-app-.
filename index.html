@@ -1,1 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zodiak Metal Измаил</title>
+    <script src="https://telegram.org"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: var(--tg-theme-bg-color, #17212b);
+            color: var(--tg-theme-text-color, #f5f5f5);
+            margin: 0;
+            padding: 15px;
+            text-align: center;
+        }
+        .header {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #3a6073;
+        }
+        h1 { margin: 0; font-size: 24px; color: #0088cc; }
+        .subtitle { font-size: 14px; color: #888; margin-top: 5px; }
+        .card {
+            background-color: var(--tg-theme-secondary-bg-color, #24303f);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card h2 { margin: 0 0 10px 0; font-size: 18px; color: var(--tg-theme-button-color, #0088cc); }
+        .price { font-weight: bold; color: #4caf50; }
+        .btn {
+            background-color: var(--tg-theme-button-color, #2481cc);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
 
+    <div class="header">
+        <h1 id="user-title">ZODIAK METAL</h1>
+        <div class="subtitle">г. Измаил • Космические масштабы, земные цены!</div>
+    </div>
+
+    <div class="card">
+        <h2>🍁 Покупка металлолома</h2>
+        <p>Принимаем черный и цветной металл. Высокие цены, честный вес!</p>
+        <span class="price">💰 Цена: Договорная (Высокая)</span>
+        <button class="btn" onclick="orderService('Покупка металла')">Сдать металл</button>
+    </div>
+
+    <div class="card">
+        <h2>🚛 Вывоз мусора и хлама</h2>
+        <p>Очистка квартир, подвалов, гаражей и участков. Собственный транспорт.</p>
+        <button class="btn" onclick="orderService('Вывоз мусора')">Заказать вывоз</button>
+    </div>
+
+    <div class="card">
+        <h2>🌱 Покос травы и Спил деревьев</h2>
+        <p>Быстрое наведение порядка на вашем участке любой сложности.</p>
+        <button class="btn" onclick="orderService('Уборка участка')">Вызвать мастеров</button>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        if (tg.initDataUnsafe && tg.initDataUnsafe.user) {
+            document.getElementById('user-title').innerText = `ZODIAK METAL для ${tg.initDataUnsafe.user.first_name}`;
+        }
+
+        function orderService(serviceName) {
+            tg.showAlert(`Заявка на "${serviceName}" принята! Мы свяжемся с вами.`);
+        }
+    </script>
+</body>
+</html>
