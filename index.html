@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zodiak Metal Измаил</title>
-    <!-- ИСПРАВЛЕНО: Скрипт теперь подключен по правильному адресу -->
-    <script src="https://telegram.org/js/telegram-web-app.js></script>
+    <script src="https://telegram.org"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -74,30 +73,36 @@
         <button class="btn" onclick="orderService('Уборка участка')">Вызвать мастеров</button>
     </div>
 
-        <script>
+    <script>
+        // Инициализация
         const tg = window.Telegram.WebApp;
         
         try {
             tg.ready();
             tg.expand();
-
-            if (tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.first_name) {
-                document.getElementById('user-title').innerText = `ZODIAK METAL для ${tg.initDataUnsafe.user.first_name}`;
+            
+            // Короткая проверка имени без длинных строк
+            const u = tg.initDataUnsafe?.user;
+            if (u && u.first_name) {
+                const el = document.getElementById('user-title');
+                el.innerText = "ZODIAK METAL для " + u.first_name;
             }
         } catch (e) {
-            console.error("Ошибка инициализации SDK:", e);
+            console.error(e);
         }
 
-        function orderService(serviceName) {
+        // Короткая функция отправки заявки
+        function orderService(name) {
             try {
-                tg.showAlert(`Заявка на "${serviceName}" принята! Мы свяжемся с вами.`);
-                tg.sendData(`Заявка: ${serviceName}`);
+                tg.showAlert("Заявка принята!");
+                tg.sendData("Заявка: " + name);
                 tg.close();
             } catch (e) {
-                alert(`Заявка на "${serviceName}" принята!`);
+                alert("Заявка принята!");
             }
         }
     </script>
 </body>
 </html>
+
 
